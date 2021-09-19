@@ -4,16 +4,24 @@ import os
 from dotenv import load_dotenv
 from yahoo_finance_api2 import share
 from yahoo_finance_api2.exceptions import YahooFinanceError
+from linebot import LineBotApi
+from linebot.models import TextSendMessage
+from linebot.exceptions import LineBotApiError
 
 load_dotenv()
+line_bot_api = LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN"))
 
 
 def getLatestValue():
+    """ 
+    最も最近の指数(単位時間の終値)のみ取得する  
+    @return {timestamp: int, close: float}
+    """
     my_share = share.Share(os.getenv("TARGET_STOCK_NAME"))
     symbol_data = None
     try:
         symbol_data = my_share.get_historical(share.PERIOD_TYPE_DAY,
-                                              2,
+                                              1,
                                               share.FREQUENCY_TYPE_MINUTE,
                                               1)
     except YahooFinanceError as e:
@@ -31,23 +39,13 @@ def getLatestValue():
     return None
 
 
-def printing(data):
-    if data is None:
-        return
-    timestamps = data["timestamp"]
-    open = data["open"]
-    print('timestapms len=' + str(len(timestamps)))
-    print('open len=' + str(len(open)))
-    for i in range(len(timestamps)):
-        time = dt.fromtimestamp(
-            timestamps[i]/1000).strftime('%Y/%m/%d %H:%M:%S')
-        print(time + ":" + str(open[i]))
-    vals = ['open', 'close', 'high', 'low', 'adj_close', 'volume']
-    for v in vals:
-        print(v + '=' + str(data.get(v)))
+def send_line_bot(s):
+    line_bot_api.broadcast(TextSendMessage(text=s))
 
 
-latest = getLatestValue()
-print(latest)
-print(dt.fromtimestamp(
-            latest["timestamp"]/1000).strftime('%Y/%m/%d %H:%M:%S'))
+if __name__ == "__main__":
+    latest = getLatestValue()
+    if latest is not None:
+        print(latest)
+        send_line_bot(dt.fromtimestamp(
+            latest["timestamp"]/1000).strftime('%Y/%m/%d %H:%M') + "ごろ: " + str(latest["close"]))
