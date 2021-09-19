@@ -12,7 +12,7 @@ load_dotenv()
 line_bot_api = LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN"))
 
 
-def getLatestValue():
+def get_latest_close():
     """ 
     最も最近の指数(単位時間の終値)のみ取得する  
     @return {timestamp: int, close: float}
@@ -44,7 +44,7 @@ def send_line_bot(s):
 
 
 if __name__ == "__main__":
-    latest = getLatestValue()
+    latest = get_latest_close()
     if latest is not None:
         print(latest)
         send_line_bot(dt.fromtimestamp(
