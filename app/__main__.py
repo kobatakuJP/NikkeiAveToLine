@@ -7,4 +7,4 @@ if __name__ == "__main__":
         print(latest)
         from .send_notification.main import send_notification
         send_notification(dt.fromtimestamp(
-            latest["timestamp"]/1000).strftime('%Y/%m/%d %H:%M') + "ごろ: " + str(latest["close"]))
+            latest["timestamp"]/1000), latest["close"])
