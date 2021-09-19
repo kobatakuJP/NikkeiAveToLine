@@ -7,8 +7,6 @@ verify_ssl = true
 
 [packages]
 line-bot-sdk = "*"
-quandl = "*"
-python-dotenv = "*"
 yahoo-finance-api2 = "*"
 
 [requires]
