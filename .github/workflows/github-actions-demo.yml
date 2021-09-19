@@ -2,6 +2,7 @@ name: GitHub Actions Demo
 on:
   schedule:
     - cron:  '30 5,17 * * *'
+  workflow_dispatch:
 
 jobs:
   Explore-GitHub-Actions:
