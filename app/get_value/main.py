@@ -11,7 +11,7 @@ def get_latest_close():
     symbol_data = None
     try:
         symbol_data = my_share.get_historical(share.PERIOD_TYPE_DAY,
-                                              5,
+                                              1,
                                               share.FREQUENCY_TYPE_MINUTE,
                                               1)
     except YahooFinanceError as e:
