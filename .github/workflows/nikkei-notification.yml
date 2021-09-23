@@ -7,7 +7,7 @@ on:
       debug:
         description: "Debug flag. 'true' is debug mode. else, production mode."
         required: false
-        default: "true"
+        default: ""
 
 jobs:
   build:
