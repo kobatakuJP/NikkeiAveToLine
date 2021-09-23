@@ -1,0 +1,11 @@
+name: "Set Environment Value"
+description: "Set environment value"
+inputs:
+  debug:
+    description: "Debug flag. empty is meaning 'false'. else mean 'true'."
+    required: false
+    default: ""
+  targetStockName:
+    description: "Stock code. default is ^N225 (Nikkei ave)."
+    required: true
+    default: "^N225"

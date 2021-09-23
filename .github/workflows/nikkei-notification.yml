@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Nikkei notification
 on:
   schedule:
     - cron: '25 5 * * *'
@@ -8,8 +8,14 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     timeout-minutes: 30
+    env:
+      DEBUG: $INPUT_DEBUG
+      TARGET_STOCK_NAME: $INPUT_TARGET_STOCK_NAME
+      LINEBOT_ACCESS_TOKEN: ${{ secrets.LINEBOT_ACCESS_TOKEN }}
+      MY_LINE_ID: ${{ secrets.MY_LINE_ID }}
     steps:
       - uses: actions/checkout@v2
+      - uses: ./.github/actions/set-env
       - name: Set up Python 3.7
         uses: actions/setup-python@v2
         with:
@@ -29,10 +35,5 @@ jobs:
       - name: Install dependencies
         if: steps.pipenv-cache.outputs.cache-hit != 'true'
         run: pipenv sync --dev
-      - name: Create dot env file
-        run: |
-          touch .env
-          echo "TARGET_STOCK_NAME=${{ secrets.TARGET_STOCK_NAME }}" >> .env
-          echo "LINEBOT_ACCESS_TOKEN=${{ secrets.LINEBOT_ACCESS_TOKEN }}" >> .env
       - name: Exec🍏
         run: pipenv run exec
