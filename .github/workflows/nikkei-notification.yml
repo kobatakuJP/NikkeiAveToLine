@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
     inputs:
       debug:
-        description: "Debug flag. empty is meaning 'false'. else mean 'true'."
+        description: "Debug flag. 'true' is debug mode. else, production mode."
         required: false
-        default: ""
+        default: "true"
 
 jobs:
   build:

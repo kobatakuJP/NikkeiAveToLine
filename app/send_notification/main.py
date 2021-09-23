@@ -16,8 +16,8 @@ def send_line_bot(s):
 
 def get_notification_function():
     line_bot_api = LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN"))
-    if (os.getenv("DEBUG") is None or ""):
-        return line_bot_api.broadcast
-    else:
+    if (os.getenv("DEBUG") == "true"):
         print("debug")
         return lambda mes: line_bot_api.push_message(os.getenv("MY_LINE_ID"), mes)
+    else:
+        return line_bot_api.broadcast
