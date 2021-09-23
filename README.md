@@ -19,6 +19,13 @@
 必須。  
 `line developer`で取得したボットチャネルのアクセストークン。  
 
+#### MULTI_CAST_LINE_IDS
+
+必須。  
+マルチキャストする先のLINEIDを入れる。  
+（主にグループLINEが用途となる）  
+複数入れる場合、セパレータは`:`。
+
 #### DEBUG
 
 任意。ローカル環境では設定推奨。  
@@ -35,6 +42,7 @@
 ```
 TARGET_STOCK_NAME=^N225
 LINEBOT_ACCESS_TOKEN=/XXXXXXX/....(結構長い)
+MULTI_CAST_LINE_IDS=U123456789XXXXXX:C987654321XXXXXX
 DEBUG=true
 MY_LINE_ID=U123456789XXXXXX
 ```
