@@ -15,9 +15,19 @@ def send_line_bot(s):
 
 
 def get_notification_function():
-    line_bot_api = LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN"))
     if (os.getenv("DEBUG") == "true"):
         print("debug")
-        return lambda mes: line_bot_api.push_message(os.getenv("MY_LINE_ID"), mes)
+        return LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN")).push_message(os.getenv("MY_LINE_ID"), mes)
     else:
-        return line_bot_api.broadcast
+        return prd_notification_function
+
+
+def prd_notification_function(mes):
+    """
+    broadcastとマルチキャストを行う
+    """
+    line_bot_api = LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN"))
+    line_bot_api.broadcast(mes)
+    for id in os.getenv("MULTI_CAST_LINE_IDS", "").split(":"):
+        if id != "" and id is not None:
+            line_bot_api.push_message(id, mes)
