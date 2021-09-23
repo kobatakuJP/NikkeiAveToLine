@@ -36,8 +36,11 @@ jobs:
           key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
-      - name: Install dependencies
-        if: steps.pipenv-cache.outputs.cache-hit != 'true'
-        run: pipenv sync --dev
-      - name: Exec🍏
-        run: pipenv run exec
+      # - name: Install dependencies
+      #   if: steps.pipenv-cache.outputs.cache-hit != 'true'
+      #   run: pipenv sync --dev
+      # - name: Exec🍏
+      #   run: pipenv run exec
+      - name: Debug
+        run: |
+          echo $DEBUG
