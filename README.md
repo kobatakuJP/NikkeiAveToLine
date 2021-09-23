@@ -42,3 +42,8 @@ MY_LINE_ID=U123456789XXXXXX
 ## 実行
 
 `$ pipenv run exec`
+
+## 利用ライブラリ
+
+- [yahoo-finance-api2](https://github.com/pkout/yahoo_finance_api2)
+- [line-bot-sdk](https://github.com/line/line-bot-sdk-pytho)
