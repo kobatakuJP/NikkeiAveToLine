@@ -3,14 +3,19 @@ on:
   schedule:
     - cron: '25 5 * * *'
   workflow_dispatch:
+    inputs:
+      debug:
+        description: "Debug flag. empty is meaning 'false'. else mean 'true'."
+        required: false
+        default: ""
 
 jobs:
   build:
     runs-on: ubuntu-18.04
     timeout-minutes: 30
     env:
-      DEBUG: $INPUT_DEBUG
-      TARGET_STOCK_NAME: $INPUT_TARGET_STOCK_NAME
+      DEBUG: ${{ github.event.inputs.debug }}
+      TARGET_STOCK_NAME: ${{ secrets.TARGET_STOCK_NAME }}
       LINEBOT_ACCESS_TOKEN: ${{ secrets.LINEBOT_ACCESS_TOKEN }}
       MY_LINE_ID: ${{ secrets.MY_LINE_ID }}
     steps:
