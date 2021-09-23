@@ -16,7 +16,7 @@ def send_line_bot(s):
 
 def get_notification_function():
     line_bot_api = LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN"))
-    if (os.getenv("DEBUG") is None):
+    if (os.getenv("DEBUG") is None or ""):
         return line_bot_api.broadcast
     else:
         print("debug")
