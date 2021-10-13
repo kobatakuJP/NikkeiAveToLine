@@ -4,8 +4,8 @@ from linebot import LineBotApi
 from linebot.models import TextSendMessage
 
 
-def send_notification(timestamp: dt, value: float):
-    send_line_bot(timestamp.strftime('%Y/%m/%d %H:%M') + "ごろ: " + str(value))
+def send_notification(text: str):
+    send_line_bot(text)
 
 
 def send_line_bot(s):
