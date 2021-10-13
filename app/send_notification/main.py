@@ -2,7 +2,6 @@ import os
 from datetime import datetime as dt
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
-from linebot.exceptions import LineBotApiError
 
 
 def send_notification(timestamp: dt, value: float):
@@ -17,7 +16,7 @@ def send_line_bot(s):
 def get_notification_function():
     if (os.getenv("DEBUG") == "true"):
         print("debug")
-        return LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN")).push_message(os.getenv("MY_LINE_ID"), mes)
+        return lambda mes: LineBotApi(os.getenv("LINEBOT_ACCESS_TOKEN")).push_message(os.getenv("MY_LINE_ID"), mes)
     else:
         return prd_notification_function
 
