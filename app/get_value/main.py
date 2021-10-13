@@ -52,8 +52,6 @@ def get_yesterday_close():
 
     timestamps = symbol_data.get("timestamp", [])
     closes = symbol_data.get("close", [])
-    print(timestamps)
-    print(closes)
     is_touch = False
     for i in reversed(range(len(timestamps))):
         # 昨日なので、一個前を取る
